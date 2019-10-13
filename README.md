@@ -11,7 +11,7 @@ To improve a programmer’s performance I propose the programming hat. This hat 
 ## Procedures
 * Code will be written in Python
 * All code must be reviewed by one other person
- * Note: code reviews are enforced mostly for communication purposes
+  * Note: code reviews are enforced mostly for communication purposes
 
 ## Hardware:
 * Total: $36.50
