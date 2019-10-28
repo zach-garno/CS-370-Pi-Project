@@ -38,4 +38,6 @@ We plan on evaluating the following metrics in order:
 * Bash
 
 ## Goals:
-Device is to be portable, cost effective, fun, and comfortable for the user’s head. 
+Device is to be portable, cost effective, fun, and comfortable for the user’s head.
+A common problem with developers commits is they are bloated with several features. This hat addresses this by making commits and pull requests more desirable.
+
