@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+import requests
+url = 'http://149a7c09.ngrok.io/local'
+myobj = {'commit': 'made'}
+x = requests.post(url, data = myobj)
