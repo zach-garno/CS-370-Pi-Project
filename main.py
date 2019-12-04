@@ -1,7 +1,7 @@
 from time import sleep
 from flask import json, request, Flask
 import os
-if (os.uname()[1] is 'raspberrypi'):
+if (os.uname()[1] == 'raspberrypi'):
     import RPi.GPIO as GPIO
 
 # pins
@@ -10,7 +10,7 @@ commitPin = 24
 starPin = 23
 
 def setup():
-    if (os.uname()[1] is 'raspberrypi'):
+    if (os.uname()[1] == 'raspberrypi'):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(motorPin, GPIO.OUT)
         GPIO.setup(commitPin, GPIO.OUT)
@@ -18,14 +18,14 @@ def setup():
 
 def firePushAction():
     print("Push Happened!")
-    if (os.uname()[1] is 'raspberrypi'):
+    if (os.uname()[1] == 'raspberrypi'):
         GPIO.output(motorPin, GPIO.HIGH)
         sleep(10)
         GPIO.output(motorPin, GPIO.LOW)
 
 def fireStarAction():
     print("Star Happened!")
-    if (os.uname()[1] is 'raspberrypi'):
+    if (os.uname()[1] == 'raspberrypi'):
         GPIO.output(starPin, GPIO.HIGH)
         GPIO.output(starPin, GPIO.LOW)
         GPIO.output(starPin, GPIO.HIGH)
@@ -42,7 +42,7 @@ def handleJson(gitJson):
 
 def fireLocalCommit():
     print("Local Commit Happened!")
-    if (os.uname()[1] is 'raspberrypi'):
+    if (os.uname()[1] == 'raspberrypi'):
         GPIO.output(commitPin, GPIO.HIGH)
         GPIO.output(commitPin, GPIO.LOW)
         GPIO.output(commitPin, GPIO.HIGH)
