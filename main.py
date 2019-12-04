@@ -1,11 +1,32 @@
+from time import sleep
 from flask import json, request, Flask
+import RPi.GPIO as GPIO
 
+# pins
+motorPin = 25
+commitPin = 24
+starPin = 23
+
+def setup():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(motorPin, GPIO.OUT)
+    GPIO.setup(commitPin, GPIO.OUT)
+    GPIO.setup(starPin, GPIO.OUT)
 
 def firePushAction():
     print("Push Happened!")
+    GPIO.output(motorPin, GPIO.HIGH)
+    sleep(10)
+    GPIO.output(motorPin, GPIO.LOW)
 
 def fireStarAction():
     print("Star Happened!")
+    GPIO.output(starPin, GPIO.HIGH)
+    GPIO.output(starPin, GPIO.LOW)
+    GPIO.output(starPin, GPIO.HIGH)
+    GPIO.output(starPin, GPIO.LOW)
+    GPIO.output(starPin, GPIO.HIGH)
+    GPIO.output(starPin, GPIO.LOW)
 
 def handleJson(gitJson):
     if "pusher" in gitJson:
@@ -16,6 +37,12 @@ def handleJson(gitJson):
 
 def fireLocalCommit():
     print("Local Commit Happened!")
+    GPIO.output(commitPin, GPIO.HIGH)
+    GPIO.output(commitPin, GPIO.LOW)
+    GPIO.output(commitPin, GPIO.HIGH)
+    GPIO.output(commitPin, GPIO.LOW)
+    GPIO.output(commitPin, GPIO.HIGH)
+    GPIO.output(commitPin, GPIO.LOW)
 
 app = Flask(__name__)
 
