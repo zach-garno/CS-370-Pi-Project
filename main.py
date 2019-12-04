@@ -1,6 +1,7 @@
 from time import sleep
 from flask import json, request, Flask
 import os
+print(os.uname()[1])
 if (os.uname()[1] == 'raspberrypi'):
     import RPi.GPIO as GPIO
 
