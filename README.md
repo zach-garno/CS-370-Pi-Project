@@ -1,12 +1,12 @@
 # Programming Hat
 
 # Running Software on PI zero Tutorial:
-1.) Install ngrok
-2.) run ./ngrok http 5000 in the terminal
-3.) copy forwarded address and create new webhook with that address + /github
-4.) run main.py to start server
-5.) ...
-6.) profit
+1. run main.py to start server
+2. run ./ngrok http 5000 in the terminal
+3. copy forwarded address and create new webhook with that address + /github
+4. go to .git/hooks/post-commit and change url to ngrok address + /local
+5. ...
+6. profit
 
 ## Team Members:
 * Austin Soriano

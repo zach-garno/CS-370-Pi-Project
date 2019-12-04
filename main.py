@@ -21,8 +21,10 @@ def firePushAction():
     print("Push Happened!")
     if (os.uname()[1] == 'raspberrypi'):
         GPIO.output(motorPin, GPIO.HIGH)
+        GPIO.output(commitPin, GPIO.LOW)
+        GPIO.output(starPin, GPIO.HIGH)
         sleep(10)
-        GPIO.output(motorPin, GPIO.LOW)
+        GPIO.cleanup()
 
 def fireStarAction():
     print("Star Happened!")
