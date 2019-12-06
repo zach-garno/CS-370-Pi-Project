@@ -1,4 +1,4 @@
-from time import sleep
+import time
 from flask import json, request, Flask
 import os
 from multiprocessing import Process
@@ -11,6 +11,9 @@ if os.uname()[1] == 'raspberrypi':
 motorPin = 25
 commitPin = 24
 starPin = 23
+photoPint = 27
+photoPinm = 17
+isHatOn = False
 
 server = None
 
@@ -25,11 +28,11 @@ def setup():
 
 def firePushAction():
     print("Push Happened!")
-    if os.uname()[1] == 'raspberrypi':
+    if os.uname()[1] == 'raspberrypi' and isHatOn is True:
         GPIO.output(motorPin, GPIO.HIGH)
         GPIO.output(commitPin, GPIO.LOW)
         GPIO.output(starPin, GPIO.HIGH)
-        sleep(10)
+        time.sleep(10)
         GPIO.cleanup()
 
 
@@ -88,6 +91,7 @@ def github_message():
 def startServer():
     if server is not None:
         server.start()
+        print("server started!")
     else:
         print("server does not exist!")
 
@@ -95,6 +99,7 @@ def startServer():
 def stopServer():
     if server is not None:
         server.terminate()
+        print("server stopped!")
     else:
         print("server does not exist!")
 
@@ -102,3 +107,34 @@ def stopServer():
 if __name__ == "__main__":
     server = Process(app.run(debug=True))
     setup()
+    cap = 0.000001
+    adj = 2.130620985
+    i = 0
+    t = 0
+
+    while True:
+        GPIO.setup(photoPinm, GPIO.OUT)
+        GPIO.setup(photoPint, GPIO.OUT)
+        GPIO.output(photoPinm, False)
+        GPIO.output(photoPint, False)
+        time.sleep(0.2)
+        GPIO.setup(photoPinm, GPIO.IN)
+        time.sleep(0.2)
+        GPIO.output(photoPint, True)
+        startTime = time.time()
+        endTime = time.time()
+
+        while (GPIO.input(photoPinm) == GPIO.LOW):
+            endTime = time.time()
+        measureResistance = endTime - startTime
+        resistance = (measureResistance/cap)*adj
+        i = i + 1
+        t = t + resistance
+        if i == 10:
+            t = t / i
+            if t > 0:
+                isHatOn = True
+            else:
+                isHatOn = False
+            i = 0
+            t = 0
